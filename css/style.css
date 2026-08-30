@@ -2,15 +2,15 @@
    Tokens
    ======================================================== */
 :root{
-  --bg: #FAF9FC;
-  --panel: #FFFFFF;
-  --panel-alt: #F1EEFC;
-  --text: #181528;
-  --muted: #6B6580;
-  --accent: #5546D8;
-  --accent-soft: rgba(85, 70, 216, 0.10);
-  --accent-warm: #E8623F;
-  --line: rgba(24, 21, 40, 0.09);
+  --bg: #0A0F1A;
+  --panel: #101827;
+  --panel-alt: #0D1420;
+  --text: #E7ECF5;
+  --muted: #8A93A6;
+  --accent: #4FD1C5;
+  --accent-soft: rgba(79, 209, 197, 0.12);
+  --accent-warm: #F2A65A;
+  --line: rgba(231, 236, 245, 0.09);
 
   --font-display: "Fraunces", serif;
   --font-body: "IBM Plex Sans", sans-serif;
@@ -49,7 +49,7 @@ img{ max-width: 100%; display: block; }
 
 .skip-link{
   position: absolute; left: -999px; top: auto;
-  background: var(--accent); color: #FFFFFF; padding: 0.75em 1em;
+  background: var(--accent); color: #06201d; padding: 0.75em 1em;
   border-radius: 4px; z-index: 200;
 }
 .skip-link:focus{ left: 1rem; top: 1rem; }
@@ -111,7 +111,7 @@ img{ max-width: 100%; display: block; }
   align-items: center;
   justify-content: space-between;
   padding: 1.1rem 1.75rem;
-  background: rgba(250, 249, 252, 0.78);
+  background: rgba(10, 15, 26, 0.72);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
@@ -211,13 +211,13 @@ img{ max-width: 100%; display: block; }
 .cta-row{ display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
 .btn-primary{
   background: var(--accent);
-  color: #FFFFFF;
+  color: #06201d;
   font-weight: 600;
   padding: 0.75em 1.5em;
   border-radius: 6px;
   text-decoration: none;
 }
-.btn-primary:hover{ background: #6E5EEF; text-decoration: none; }
+.btn-primary:hover{ background: #6fe0d5; text-decoration: none; }
 .btn-ghost{
   color: var(--text);
   border-bottom: 1px solid var(--line);
