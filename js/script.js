@@ -81,7 +81,7 @@ function tick(ts) {
   ctx.lineWidth = 1;
   for (const [i, j, ratio] of edges) {
     const a = nodes[i], b = nodes[j];
-    ctx.strokeStyle = `rgba(79, 209, 197, ${(1 - ratio) * 0.18})`;
+    ctx.strokeStyle = `rgba(85, 70, 216, ${(1 - ratio) * 0.22})`;
     ctx.beginPath();
     ctx.moveTo(a.x, a.y);
     ctx.lineTo(b.x, b.y);
@@ -92,7 +92,7 @@ function tick(ts) {
   for (const n of nodes) {
     ctx.beginPath();
     ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(231, 236, 245, 0.55)";
+    ctx.fillStyle = "rgba(24, 21, 40, 0.35)";
     ctx.fill();
   }
 
@@ -110,8 +110,8 @@ function tick(ts) {
     const y = a.y + (b.y - a.y) * p.t;
     ctx.beginPath();
     ctx.arc(x, y, 2.2, 0, Math.PI * 2);
-    ctx.fillStyle = "#F2A65A";
-    ctx.shadowColor = "#F2A65A";
+    ctx.fillStyle = "#E8623F";
+    ctx.shadowColor = "#E8623F";
     ctx.shadowBlur = 6;
     ctx.fill();
     ctx.shadowBlur = 0;
@@ -126,7 +126,7 @@ function drawStatic() {
   ctx.lineWidth = 1;
   for (const [i, j, ratio] of edges) {
     const a = nodes[i], b = nodes[j];
-    ctx.strokeStyle = `rgba(79, 209, 197, ${(1 - ratio) * 0.14})`;
+    ctx.strokeStyle = `rgba(85, 70, 216, ${(1 - ratio) * 0.16})`;
     ctx.beginPath();
     ctx.moveTo(a.x, a.y);
     ctx.lineTo(b.x, b.y);
@@ -135,7 +135,7 @@ function drawStatic() {
   for (const n of nodes) {
     ctx.beginPath();
     ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(231, 236, 245, 0.45)";
+    ctx.fillStyle = "rgba(24, 21, 40, 0.28)";
     ctx.fill();
   }
 }
