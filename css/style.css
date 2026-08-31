@@ -2,6 +2,28 @@
    Tokens
    ======================================================== */
 :root{
+  --bg: #FAF9FC;
+  --panel: #FFFFFF;
+  --panel-alt: #F1EEFC;
+  --text: #181528;
+  --muted: #6B6580;
+  --accent: #5546D8;
+  --accent-soft: rgba(85, 70, 216, 0.10);
+  --accent-warm: #E8623F;
+  --line: rgba(24, 21, 40, 0.09);
+  --accent-contrast: #FFFFFF;
+  --accent-hover: #6E5EEF;
+  --nav-bg: rgba(250, 249, 252, 0.78);
+
+  --font-display: "Fraunces", serif;
+  --font-body: "IBM Plex Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  --max-w: 1080px;
+  --section-pad: 6.5rem;
+}
+
+html[data-theme="dark"]{
   --bg: #0A0F1A;
   --panel: #101827;
   --panel-alt: #0D1420;
@@ -11,13 +33,16 @@
   --accent-soft: rgba(79, 209, 197, 0.12);
   --accent-warm: #F2A65A;
   --line: rgba(231, 236, 245, 0.09);
+  --accent-contrast: #06201D;
+  --accent-hover: #6FE0D5;
+  --nav-bg: rgba(10, 15, 26, 0.72);
+}
 
-  --font-display: "Fraunces", serif;
-  --font-body: "IBM Plex Sans", sans-serif;
-  --font-mono: "IBM Plex Mono", monospace;
-
-  --max-w: 1080px;
-  --section-pad: 6.5rem;
+html{
+  transition: background-color 0.25s ease;
+}
+body{
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 /* ========================================================
@@ -49,7 +74,7 @@ img{ max-width: 100%; display: block; }
 
 .skip-link{
   position: absolute; left: -999px; top: auto;
-  background: var(--accent); color: #06201d; padding: 0.75em 1em;
+  background: var(--accent); color: var(--accent-contrast); padding: 0.75em 1em;
   border-radius: 4px; z-index: 200;
 }
 .skip-link:focus{ left: 1rem; top: 1rem; }
@@ -111,7 +136,7 @@ img{ max-width: 100%; display: block; }
   align-items: center;
   justify-content: space-between;
   padding: 1.1rem 1.75rem;
-  background: rgba(10, 15, 26, 0.72);
+  background: var(--nav-bg);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
@@ -141,6 +166,32 @@ img{ max-width: 100%; display: block; }
   letter-spacing: 0.01em;
 }
 .nav-links a:hover{ color: var(--text); text-decoration: none; }
+
+.nav-right{
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.theme-toggle{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.theme-toggle:hover{ border-color: var(--accent); color: var(--accent); }
+.theme-toggle:active{ transform: scale(0.92); }
+.theme-toggle .icon-moon{ display: none; }
+html[data-theme="dark"] .theme-toggle .icon-sun{ display: none; }
+html[data-theme="dark"] .theme-toggle .icon-moon{ display: block; }
 
 /* ========================================================
    Hero
@@ -211,13 +262,13 @@ img{ max-width: 100%; display: block; }
 .cta-row{ display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
 .btn-primary{
   background: var(--accent);
-  color: #06201d;
+  color: var(--accent-contrast);
   font-weight: 600;
   padding: 0.75em 1.5em;
   border-radius: 6px;
   text-decoration: none;
 }
-.btn-primary:hover{ background: #6fe0d5; text-decoration: none; }
+.btn-primary:hover{ background: var(--accent-hover); text-decoration: none; }
 .btn-ghost{
   color: var(--text);
   border-bottom: 1px solid var(--line);
@@ -254,6 +305,12 @@ img{ max-width: 100%; display: block; }
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+}
+.avatar-frame img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .avatar-frame span{
   font-family: var(--font-display);
