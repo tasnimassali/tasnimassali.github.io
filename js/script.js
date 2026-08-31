@@ -1,6 +1,32 @@
 // Footer year
 document.getElementById("year").textContent = new Date().getFullYear();
 
+// Theme toggle
+const themeToggle = document.getElementById("theme-toggle");
+
+function isDarkTheme() {
+  return document.documentElement.getAttribute("data-theme") === "dark";
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  try { localStorage.setItem("theme", theme); } catch (e) {}
+  if (themeToggle) {
+    const isDark = theme === "dark";
+    themeToggle.setAttribute("aria-pressed", String(isDark));
+    themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+  }
+}
+
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    applyTheme(isDarkTheme() ? "light" : "dark");
+    if (prefersReducedMotion && typeof drawStatic === "function" && nodes) drawStatic();
+  });
+  // sync initial aria state with whatever the inline head script already set
+  applyTheme(document.documentElement.getAttribute("data-theme") || "light");
+}
+
 // Scroll-reveal for sections
 const revealTargets = document.querySelectorAll(".section > *");
 revealTargets.forEach(el => el.classList.add("reveal"));
@@ -24,6 +50,12 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 
 let width, height, nodes, edges, packets;
 const NODE_COUNT_BASE = 42;
+
+function canvasPalette() {
+  return isDarkTheme()
+    ? { edge: "79, 209, 197", node: "231, 236, 245", packet: "#F2A65A" }
+    : { edge: "85, 70, 216", node: "24, 21, 40", packet: "#E8623F" };
+}
 
 function seedGraph() {
   const area = width * height;
@@ -68,6 +100,7 @@ let lastSpawn = 0;
 
 function tick(ts) {
   ctx.clearRect(0, 0, width, height);
+  const palette = canvasPalette();
 
   // drift nodes
   for (const n of nodes) {
@@ -81,7 +114,7 @@ function tick(ts) {
   ctx.lineWidth = 1;
   for (const [i, j, ratio] of edges) {
     const a = nodes[i], b = nodes[j];
-    ctx.strokeStyle = `rgba(79, 209, 197, ${(1 - ratio) * 0.18})`;
+    ctx.strokeStyle = `rgba(${palette.edge}, ${(1 - ratio) * 0.22})`;
     ctx.beginPath();
     ctx.moveTo(a.x, a.y);
     ctx.lineTo(b.x, b.y);
@@ -92,7 +125,7 @@ function tick(ts) {
   for (const n of nodes) {
     ctx.beginPath();
     ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(231, 236, 245, 0.55)";
+    ctx.fillStyle = `rgba(${palette.node}, 0.35)`;
     ctx.fill();
   }
 
@@ -110,8 +143,8 @@ function tick(ts) {
     const y = a.y + (b.y - a.y) * p.t;
     ctx.beginPath();
     ctx.arc(x, y, 2.2, 0, Math.PI * 2);
-    ctx.fillStyle = "#F2A65A";
-    ctx.shadowColor = "#F2A65A";
+    ctx.fillStyle = palette.packet;
+    ctx.shadowColor = palette.packet;
     ctx.shadowBlur = 6;
     ctx.fill();
     ctx.shadowBlur = 0;
@@ -123,10 +156,11 @@ function tick(ts) {
 function drawStatic() {
   // single quiet frame for reduced-motion users
   ctx.clearRect(0, 0, width, height);
+  const palette = canvasPalette();
   ctx.lineWidth = 1;
   for (const [i, j, ratio] of edges) {
     const a = nodes[i], b = nodes[j];
-    ctx.strokeStyle = `rgba(79, 209, 197, ${(1 - ratio) * 0.14})`;
+    ctx.strokeStyle = `rgba(${palette.edge}, ${(1 - ratio) * 0.16})`;
     ctx.beginPath();
     ctx.moveTo(a.x, a.y);
     ctx.lineTo(b.x, b.y);
@@ -135,7 +169,7 @@ function drawStatic() {
   for (const n of nodes) {
     ctx.beginPath();
     ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(231, 236, 245, 0.45)";
+    ctx.fillStyle = `rgba(${palette.node}, 0.28)`;
     ctx.fill();
   }
 }
